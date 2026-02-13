@@ -1,0 +1,6 @@
+scrape_configs:
+  - job_name: alertmanager
+    scrape_interval: 5s
+    static_configs:
+      - targets: 
+        - alertmanager:9093

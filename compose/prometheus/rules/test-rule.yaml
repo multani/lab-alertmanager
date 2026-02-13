@@ -1,0 +1,24 @@
+groups:
+  - name: test-rule
+    labels:
+      service: foobar
+    rules:
+      - alert: Test
+        expr: |-
+          vector(1) >= 10
+        for: 0s
+        labels:
+          severity: ticket
+        annotations:
+          summary: Test is firing (ticket)
+          title: Things have too many errors
+
+      - alert: Test
+        expr: |-
+          vector(2) >= 2
+        for: 0s
+        labels:
+          severity: page
+        annotations:
+          summary: Test is firing (page)
+          title: Things have *way* too many errors

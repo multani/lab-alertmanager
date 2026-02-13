@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+  external_labels:
+
+alerting:
+  alert_relabel_configs: []
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+rule_files:
+  - "/etc/prometheus/rules/*.yaml"
+
+scrape_config_files:
+  - "/etc/prometheus/scrapes/*.yaml"

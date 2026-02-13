@@ -1,0 +1,60 @@
+{{ define "slack_text" -}}
+*Severity*={{ template "slack_severity" .CommonLabels.severity }}
+{{ if .CommonAnnotations.summary -}}*Summary*={{ .CommonAnnotations.summary }}{{ end }}
+
+{{ range .Alerts -}}
+• {{ template "slack_status_emoji" .Status }} {{ .Annotations.title }} {{ template "slack_duration" . }}
+{{ end -}}
+{{- end -}}
+
+
+{{ define "slack_severity" -}}
+{{- if eq . "ticket" -}}
+  :warning: `ticket` (check when you can)
+{{- else if eq . "page" -}}
+  :boom: `page` (check immediately)
+{{- else -}}
+  :shrug: `{{ if eq . "" }}(no common severity){{ else }}{{ . }}{{ end }}`
+{{- end -}}
+{{- end -}}
+
+
+{{ define "slack_status_emoji" -}}
+{{- if eq . "firing" -}}
+  :rotating_light:
+{{- else if eq . "resolved" -}}
+  :white_check_mark:
+{{- else -}}
+  :loading:
+{{- end -}}
+{{- end -}}
+
+
+/* Display the duration of an alert, formatted for Slack. */
+{{ define "slack_duration" -}}
+(⏲️ {{ if eq .Status "firing" }}since{{ else }}for{{ end }} {{ template "alert_duration" . }})
+{{- end }}
+
+
+// Set the Slack "color" for the message
+{{ define "slack_color" -}}
+{{- if eq .Status "firing" -}}
+  {{- if eq .CommonLabels.severity "page" -}}
+    danger
+  {{- else -}}
+    warning
+  {{- end -}}
+{{- else -}}
+  good
+{{- end -}}
+{{- end }}
+
+
+{{ define "slack_title" -}}
+{{ template "slack_status_emoji" .Status }} {{ .GroupLabels.alertname }} × {{ .Alerts.Firing | len -}}
+{{- end }}
+
+{{ define "slack_channel" -}}
+slack-test-default
+{{- end }}
+

@@ -1,0 +1,23 @@
+services:
+  prometheus:
+    image: prom/prometheus:v3.9.1
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --log.level=debug
+    ports:
+      - 19090:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+
+  alertmanager:
+    image: prom/alertmanager:v0.31.0
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --log.level=debug
+    ports:
+      - 19093:9093
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+
+  webhook-logger:
+    image: ghcr.io/multani/alertmanager-webhook-logger:v1.1.2

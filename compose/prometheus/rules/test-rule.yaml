@@ -15,7 +15,7 @@ groups:
 
       - alert: Test
         expr: |-
-          vector(2) >= 2
+          vector(2) >= 20
         for: 0s
         labels:
           severity: page

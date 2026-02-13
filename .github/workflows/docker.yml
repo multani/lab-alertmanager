@@ -1,0 +1,16 @@
+name: Docker
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  images:
+    name: Check images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: docker pull
+        working-directory: ./compose
+        run: docker compose pull

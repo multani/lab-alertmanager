@@ -20,4 +20,4 @@ services:
       - ./alertmanager:/etc/alertmanager
 
   webhook-logger:
-    image: ghcr.io/multani/alertmanager-webhook-logger:v1.1.2
+    image: ghcr.io/multani/alertmanager-webhook-logger:v1.1.5

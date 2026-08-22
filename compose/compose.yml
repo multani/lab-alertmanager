@@ -1,6 +1,6 @@
 services:
   prometheus:
-    image: prom/prometheus:v3.9.1
+    image: prom/prometheus:v3.14.0
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       - --log.level=debug
